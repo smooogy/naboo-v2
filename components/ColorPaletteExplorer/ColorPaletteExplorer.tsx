@@ -150,6 +150,21 @@ export function ColorPaletteExplorer({ isOpen, onClose, heroVariant, onHeroVaria
     saveSettings(newColors);
   };
 
+  // Update multiple CSS variables at once (for presets)
+  const applyPreset = (updates: Record<string, string>) => {
+    if (typeof window !== 'undefined') {
+      Object.entries(updates).forEach(([cssVar, value]) => {
+        document.documentElement.style.setProperty(cssVar, value);
+      });
+    }
+    
+    const newColors = colors.map(color => 
+      updates[color.cssVar] ? { ...color, currentValue: updates[color.cssVar] } : color
+    );
+    setColors(newColors);
+    saveSettings(newColors);
+  };
+
   const updateCustomColor = (index: number, value: string) => {
     const newCustomColors = [...customColors];
     newCustomColors[index].value = value;
@@ -455,91 +470,61 @@ export function ColorPaletteExplorer({ isOpen, onClose, heroVariant, onHeroVaria
           </p>
           <div className="flex flex-wrap gap-2">
             <button
-              onClick={() => {
-                updateCssVariable('--primary', '#D3D676');
-                updateCssVariable('--primary-foreground', '#212724');
-              }}
+              onClick={() => applyPreset({ '--primary': '#D3D676', '--primary-foreground': '#212724' })}
               className="px-3 py-1.5 text-[12px] font-sans font-medium bg-[#D3D676] text-black rounded hover:opacity-90 transition-opacity"
             >
               Yellow (Default)
             </button>
             <button
-              onClick={() => {
-                updateCssVariable('--primary', '#d2d65c');
-                updateCssVariable('--primary-foreground', '#212724');
-              }}
+              onClick={() => applyPreset({ '--primary': '#d2d65c', '--primary-foreground': '#212724' })}
               className="px-3 py-1.5 text-[12px] font-sans font-medium bg-[#d2d65c] text-black rounded hover:opacity-90 transition-opacity"
             >
               Lime
             </button>
             <button
-              onClick={() => {
-                updateCssVariable('--primary', '#F4D686');
-                updateCssVariable('--primary-foreground', '#212724');
-              }}
+              onClick={() => applyPreset({ '--primary': '#F4D686', '--primary-foreground': '#212724' })}
               className="px-3 py-1.5 text-[12px] font-sans font-medium bg-[#F4D686] text-black rounded hover:opacity-90 transition-opacity"
             >
               Gold
             </button>
             <button
-              onClick={() => {
-                updateCssVariable('--primary', '#F0D58A');
-                updateCssVariable('--primary-foreground', '#212724');
-              }}
+              onClick={() => applyPreset({ '--primary': '#F0D58A', '--primary-foreground': '#212724' })}
               className="px-3 py-1.5 text-[12px] font-sans font-medium bg-[#F0D58A] text-black rounded hover:opacity-90 transition-opacity"
             >
               Sand
             </button>
             <button
-              onClick={() => {
-                updateCssVariable('--primary', '#C6E278');
-                updateCssVariable('--primary-foreground', '#212724');
-              }}
+              onClick={() => applyPreset({ '--primary': '#C6E278', '--primary-foreground': '#212724' })}
               className="px-3 py-1.5 text-[12px] font-sans font-medium bg-[#C6E278] text-black rounded hover:opacity-90 transition-opacity"
             >
               Spring
             </button>
             <button
-              onClick={() => {
-                updateCssVariable('--primary', '#2d7255');
-                updateCssVariable('--primary-foreground', '#ffffff');
-              }}
+              onClick={() => applyPreset({ '--primary': '#2d7255', '--primary-foreground': '#ffffff' })}
               className="px-3 py-1.5 text-[12px] font-sans font-medium bg-[#2d7255] text-white rounded hover:opacity-90 transition-opacity"
             >
               Green
             </button>
             <button
-              onClick={() => {
-                updateCssVariable('--primary', '#3452bd');
-                updateCssVariable('--primary-foreground', '#ffffff');
-              }}
+              onClick={() => applyPreset({ '--primary': '#3452bd', '--primary-foreground': '#ffffff' })}
               className="px-3 py-1.5 text-[12px] font-sans font-medium bg-[#3452bd] text-white rounded hover:opacity-90 transition-opacity"
             >
               Blue
             </button>
             <button
-              onClick={() => {
-                updateCssVariable('--primary', '#e11d48');
-                updateCssVariable('--primary-foreground', '#ffffff');
-              }}
+              onClick={() => applyPreset({ '--primary': '#e11d48', '--primary-foreground': '#ffffff' })}
               className="px-3 py-1.5 text-[12px] font-sans font-medium bg-[#e11d48] text-white rounded hover:opacity-90 transition-opacity"
             >
               Red
             </button>
             <button
-              onClick={() => {
-                updateCssVariable('--primary', '#7c3aed');
-                updateCssVariable('--primary-foreground', '#ffffff');
-              }}
+              onClick={() => applyPreset({ '--primary': '#7c3aed', '--primary-foreground': '#ffffff' })}
               className="px-3 py-1.5 text-[12px] font-sans font-medium bg-[#7c3aed] text-white rounded hover:opacity-90 transition-opacity"
             >
               Purple
             </button>
             <button
-              onClick={() => {
-                updateCssVariable('--primary', '#212724');
-                updateCssVariable('--primary-foreground', '#ffffff');
-              }}
+              onClick={() => applyPreset({ '--primary': '#212724', '--primary-foreground': '#ffffff' })}
               className="px-3 py-1.5 text-[12px] font-sans font-medium bg-[#212724] text-white rounded hover:opacity-90 transition-opacity"
             >
               Dark

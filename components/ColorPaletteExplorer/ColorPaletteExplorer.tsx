@@ -483,6 +483,24 @@ export function ColorPaletteExplorer({ isOpen, onClose, heroVariant, onHeroVaria
             </button>
             <button
               onClick={() => {
+                updateCssVariable('--primary', '#F0D58A');
+                updateCssVariable('--primary-foreground', '#212724');
+              }}
+              className="px-3 py-1.5 text-[12px] font-sans font-medium bg-[#F0D58A] text-black rounded hover:opacity-90 transition-opacity"
+            >
+              Sand
+            </button>
+            <button
+              onClick={() => {
+                updateCssVariable('--primary', '#C6E278');
+                updateCssVariable('--primary-foreground', '#212724');
+              }}
+              className="px-3 py-1.5 text-[12px] font-sans font-medium bg-[#C6E278] text-black rounded hover:opacity-90 transition-opacity"
+            >
+              Spring
+            </button>
+            <button
+              onClick={() => {
                 updateCssVariable('--primary', '#2d7255');
                 updateCssVariable('--primary-foreground', '#ffffff');
               }}

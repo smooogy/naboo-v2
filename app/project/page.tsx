@@ -81,7 +81,7 @@ const proposals: Proposal[] = [
     participants: 160,
     dateRange: "May 04 - May 20",
     estimatedTotal: "25 000,00 €",
-    pricePerPerson: "45,00 € HT /personne",
+    pricePerPerson: "45,00 € HT / personne · Includes 6 vendors",
     vendors: {
       venue: 1,
       catering: 2,
@@ -319,6 +319,7 @@ function CompareView({ proposals, onReview }: { proposals: Proposal[]; onReview:
                   Review proposal
                 </span>
               </button>
+              
             </div>
           ))}
         </div>
@@ -387,170 +388,148 @@ function ProposalCard({ proposal, onReview }: { proposal: Proposal; onReview: ()
 
   return (
     <div className="bg-white border border-border rounded p-5 shadow-md w-full">
-      <div className="flex flex-col gap-4">
-        {/* Header with status, info and image */}
-        <div className="flex flex-col lg:flex-row justify-between gap-4">
-          {/* Left side - Info */}
-          <div className="flex flex-col gap-4 flex-1">
-            {/* Status Badge */}
-            {isReady ? (
-              <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-full w-fit" style={{ backgroundColor: 'rgba(45, 114, 85, 0.1)' }}>
-                <div className="w-1 h-1 rounded-full" style={{ backgroundColor: '#2D7255' }} />
-                <span className="font-sans font-medium text-[13px] tracking-[-0.13px]" style={{ color: '#2D7255' }}>
-                  Ready to book
-                </span>
-              </div>
-            ) : (
-              <div className="bg-grey-light flex items-center gap-1.5 px-2 py-1.5 rounded-full w-fit">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="12 6 12 12 16 14" />
-                </svg>
-                <span className="font-sans text-[12px] text-grey tracking-[-0.12px]">
-                  Waiting for availability
-                </span>
-              </div>
-            )}
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Left side - All content */}
+        <div className="flex flex-col gap-4 flex-1">
+          {/* Status Badge */}
+          {isReady ? (
+            <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-full w-fit" style={{ backgroundColor: 'rgba(45, 114, 85, 0.1)' }}>
+              <div className="w-1 h-1 rounded-full" style={{ backgroundColor: '#2D7255' }} />
+              <span className="font-sans font-medium text-[13px] tracking-[-0.13px]" style={{ color: '#2D7255' }}>
+                Ready to book
+              </span>
+            </div>
+          ) : (
+            <div className="bg-grey-light flex items-center gap-1.5 px-2 py-1.5 rounded-full w-fit">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              <span className="font-sans text-[12px] text-grey tracking-[-0.12px]">
+                Waiting for availability
+              </span>
+            </div>
+          )}
 
-            {/* Venue Info */}
-            <div className="flex flex-col gap-1">
-              {!isReady && (
-                <p className="font-sans font-medium text-[15px] text-grey tracking-[-0.3px] leading-[1.2]">
-                  {proposal.location}
-                </p>
-              )}
-              <div className="flex flex-wrap items-center gap-2">
-                <h3 className="font-sans font-medium text-[22px] text-black tracking-[-0.44px] leading-[1.2]">
-                  {proposal.venueName}
-                </h3>
-                {proposal.additionalVenues && (
-                  <span className="font-sans font-medium text-[15px] text-grey tracking-[-0.3px]">
-                    +{proposal.additionalVenues} venues
-                  </span>
-                )}
-              </div>
-              {isReady && (
-                <p className="font-sans font-medium text-[15px] text-grey tracking-[-0.3px] leading-[1.2]">
-                  {proposal.location}
-                </p>
+          {/* Venue Info */}
+          <div className="flex flex-col gap-1">
+            {!isReady && (
+              <p className="font-sans font-medium text-[15px] text-grey tracking-[-0.3px] leading-[1.2]">
+                {proposal.location}
+              </p>
+            )}
+            <div className="flex flex-wrap items-center gap-2">
+              <h3 className="font-sans font-medium text-[22px] text-black tracking-[-0.44px] leading-[1.2]">
+                {proposal.venueName}
+              </h3>
+              {proposal.additionalVenues && (
+                <span className="font-sans font-medium text-[15px] text-grey tracking-[-0.3px]">
+                  +{proposal.additionalVenues} venues
+                </span>
               )}
             </div>
-
-            {/* Participants and Date */}
-            <div className="flex items-center gap-2.5 flex-wrap">
-              <div className="flex items-center gap-1">
-                <HugeiconsIcon icon={UserMultiple02Icon} size={16} color="#212724" strokeWidth={1.5} />
-                <span className="font-sans font-medium text-[15px] text-black tracking-[-0.3px] leading-[1.2]">
-                  {proposal.participants} participants
-                </span>
-              </div>
-              <div className="w-px h-5 bg-border" />
-              <div className="flex items-center gap-1">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#212724" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                  <line x1="16" y1="2" x2="16" y2="6" />
-                  <line x1="8" y1="2" x2="8" y2="6" />
-                  <line x1="3" y1="10" x2="21" y2="10" />
-                </svg>
-                <span className="font-sans font-medium text-[15px] text-black tracking-[-0.3px] leading-[1.2]">
-                  {proposal.dateRange}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Right side - Image(s) */}
-          <div className="w-full lg:w-56 h-36 shrink-0">
-            {images.length === 1 ? (
-              <img
-                src={images[0]}
-                alt={proposal.venueName}
-                className="w-full h-full object-cover rounded"
-              />
-            ) : (
-              <div className="grid grid-cols-2 grid-rows-2 gap-0.5 h-full">
-                <div className="row-span-2 relative">
-                  <img
-                    src={images[0]}
-                    alt={proposal.venueName}
-                    className="absolute inset-0 w-full h-full object-cover rounded-l"
-                  />
-                </div>
-                <img
-                  src={images[1]}
-                  alt={proposal.venueName}
-                  className="w-full h-full object-cover rounded-tr"
-                />
-                <img
-                  src={images[2]}
-                  alt={proposal.venueName}
-                  className="w-full h-full object-cover rounded-br"
-                />
-              </div>
+            {isReady && (
+              <p className="font-sans font-medium text-[15px] text-grey tracking-[-0.3px] leading-[1.2]">
+                {proposal.location}
+              </p>
             )}
           </div>
-        </div>
 
-        {/* Divider */}
-        <div className="w-full h-px bg-grey-light" />
-
-        {/* Pricing */}
-        <div className="flex flex-col gap-3">
-          <p className="font-sans font-medium text-[13px] text-grey tracking-[-0.39px] leading-5">
-            Estimated total from
-          </p>
-          <div className="flex flex-col gap-2">
-            <p className="font-sans font-medium text-[22px] text-black tracking-[-0.72px] leading-5">
-              {proposal.estimatedTotal} <span className="text-grey">HT</span>
-            </p>
-            <p className="font-sans font-medium text-[15px] text-grey tracking-[-0.45px] leading-5">
-              {proposal.pricePerPerson}
-            </p>
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="w-full h-px bg-grey-light" />
-
-        {/* Vendors */}
-        <div className="group/vendors flex flex-wrap items-center gap-4">
-          <p className="font-sans font-medium text-[15px] text-grey tracking-[-0.3px] leading-[1.2]">
-            Includes 6 vendors
-          </p>
-          <div className="flex flex-wrap gap-2 flex-1">
-            <VendorPill icon={<HugeiconsIcon icon={Building06Icon} size={14} className="text-black" strokeWidth={1.5} />} label="Venue" count={proposal.vendors.venue} />
-            <VendorPill icon={<HugeiconsIcon icon={Restaurant01Icon} size={14} className="text-black" strokeWidth={1.5} />} label="Catering" count={proposal.vendors.catering} />
-            <VendorPill icon={<HugeiconsIcon icon={SwimmingIcon} size={14} className="text-black" strokeWidth={1.5} />} label="Activities" count={proposal.vendors.activities} />
-            <div className="bg-white border border-border flex items-center gap-1 h-8 pl-1.5 pr-2 py-1 rounded-full">
-              <div className="flex items-center justify-center px-1.5 h-4">
-                <HugeiconsIcon icon={ChefIcon} size={14} className="text-black" strokeWidth={1.5} />
-              </div>
+          {/* Participants and Date */}
+          <div className="flex items-center gap-2.5 flex-wrap">
+            <div className="flex items-center gap-1">
+              <HugeiconsIcon icon={UserMultiple02Icon} size={16} color="#212724" strokeWidth={1.5} />
               <span className="font-sans font-medium text-[15px] text-black tracking-[-0.3px] leading-[1.2]">
-                Staff
+                {proposal.participants} participants
               </span>
-              <span className="font-sans font-medium text-[15px] text-grey tracking-[-0.3px] leading-[1.2] ml-1">
-                Included
+            </div>
+            <div className="w-px h-5 bg-border" />
+            <div className="flex items-center gap-1">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#212724" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <span className="font-sans font-medium text-[15px] text-black tracking-[-0.3px] leading-[1.2]">
+                {proposal.dateRange}
               </span>
             </div>
           </div>
-          <button className="flex items-center gap-1 opacity-0 group-hover/vendors:opacity-100 transition-opacity hover:opacity-70">
-            <span className="font-sans font-medium text-[15px] text-grey tracking-[-0.3px] leading-[1.2]">
-              View 6 vendors
-            </span>
-            <HugeiconsIcon icon={ArrowRight01Icon} size={16} className="text-grey" strokeWidth={1.5} />
-          </button>
+
+          {/* Divider */}
+          <div className="w-full h-px bg-grey-light" />
+
+          {/* Pricing */}
+          <div className="flex flex-col gap-3">
+            <p className="font-sans font-medium text-[13px] text-grey tracking-[-0.39px] leading-5">
+              Estimated total from
+            </p>
+            <div className="flex flex-col gap-2">
+              <p className="font-sans font-medium text-[22px] text-black tracking-[-0.72px] leading-5">
+                {proposal.estimatedTotal} <span className="text-grey">HT</span>
+              </p>
+              <p className="font-sans font-medium text-[15px] text-grey tracking-[-0.45px] leading-5">
+                {proposal.pricePerPerson}
+              </p>
+            </div>
+          </div>
+
+          {/* Divider */}
+          {/* <div className="w-full h-px bg-grey-light" /> */}
+
+      
+
+          {/* CTA Button */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onReview}
+              className="font-sans bg-primary h-10 px-4 py-3.5 rounded flex items-center justify-center btn-hover-bg"
+            >
+              <span className="font-sans font-medium text-[14px] text-primary-foreground leading-[1.2]">
+                Book
+              </span>
+            </button>
+            <button
+              onClick={onReview}
+              className="font-sans bg-white border border-border h-10 px-4 py-3.5 rounded flex items-center justify-center btn-hover-bg"
+            >
+              <span className="font-sans font-medium text-[14px] text-primary-foreground leading-[1.2]">
+                Review proposal
+              </span>
+            </button>
+          </div>
         </div>
 
-        {/* CTA Button */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={onReview}
-            className="font-sans bg-primary h-10 px-4 py-3.5 rounded flex items-center justify-center btn-hover-bg"
-          >
-            <span className="font-sans font-medium text-[14px] text-primary-foreground leading-[1.2]">
-              Review proposal
-            </span>
-          </button>
+        {/* Right side - Image(s) */}
+        <div className="w-full lg:w-1/2 h-[300px] shrink-0">
+          {images.length === 1 ? (
+            <img
+              src={images[0]}
+              alt={proposal.venueName}
+              className="w-full h-full object-cover rounded"
+            />
+          ) : (
+            <div className="grid grid-cols-2 grid-rows-2 gap-0.5 h-full">
+              <div className="row-span-2 relative">
+                <img
+                  src={images[0]}
+                  alt={proposal.venueName}
+                  className="absolute inset-0 w-full h-full object-cover rounded-l"
+                />
+              </div>
+              <img
+                src={images[1]}
+                alt={proposal.venueName}
+                className="w-full h-full object-cover rounded-tr"
+              />
+              <img
+                src={images[2]}
+                alt={proposal.venueName}
+                className="w-full h-full object-cover rounded-br"
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
